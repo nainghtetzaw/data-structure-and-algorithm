@@ -1,7 +1,4 @@
 from typing import List
-import numpy as np
-
-
 class Solution:
     def productExceptSelf(self, nums: List[int]) -> List[int]:
         res = [1] * (len(nums))
