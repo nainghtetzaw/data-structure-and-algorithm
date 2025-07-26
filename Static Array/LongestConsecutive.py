@@ -2,12 +2,12 @@ from typing import List
 
 class Solution:
     def longestConsecutive(self, nums: List[int]) -> int:
+        if len(nums) < 1:
+            return len(nums)
+        
         res = []
         prev = None
         counter = 1
-        
-        if len(nums) < 1:
-            return len(nums)
         
         for i in sorted(nums):
             if prev != None and i != prev:
