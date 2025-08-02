@@ -2,27 +2,36 @@ from typing import List
 
 class Solution:
     def threeSum(self, nums: List[int]) -> List[List[int]]:
-        res = []
-        i = 0
-        j = i + 1
+        res = list()
+        i, j, z = 0, 1, len(nums) - 1
         
-        while j < len(nums):
-            for z in range(1, len(nums)):
-                if z != j:
-                    if nums[i] + nums[j] + nums[z] == 0:
-                        if sorted(list([nums[i], nums[j], nums[z]])) not in res:
-                            res.append(sorted(list([nums[i], nums[j], nums[z]])))
-            
-            j += 1
+        nums.sort()
         
-        return res
+        while i < len(nums):
+            while j < z:
+                if j != i and z != i and j != z:
+                    threeSum = nums[i] + nums[j] + nums[z]
+                    
+                    if threeSum > 0:
+                        z -= 1
+                    elif threeSum < 0:
+                        j += 1
+                    else:
+                        res.append([nums[i], nums[j], nums[z]])
+                        j += 1
+                        z -= 1
+                elif j == i:
+                    j += 1
+                elif z == i:
+                    z -= 1
+                        
+            i += 1
+            j = 0
+            z = len(nums) - 1
+        
+        return list(dict.fromkeys(res))
     
     
 result = Solution.threeSum(Solution, [-1,0,1,2,-1,-4])
 
-for i in result:
-    print("\n")
-    print("[")
-    for j in i:
-        print(j)
-    print("]")
+print(result)
