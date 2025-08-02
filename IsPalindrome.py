@@ -3,9 +3,22 @@ class Solution:
         if len(s) == 1:
             return True
         
-        res = ""
+        l, r = 0, len(s) - 1
         
-        for i in range(len(s)):
-            res += s[i].lower() if s[i].isalnum() else ""
+        while l <= r:
+            if not s[l].isalnum():
+                l += 1
+            elif not s[r].isalnum():
+                r -= 1
+            else:
+                if s[l].lower() != s[r].lower():
+                    return False
+                
+                l += 1
+                r -= 1
         
-        return res == res[::-1]
+        
+        return True
+    
+result = Solution.isPalindrome(Solution, "Was it a car or a cat I saw?")
+print(result)
