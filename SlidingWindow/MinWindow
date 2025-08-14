@@ -32,4 +32,4 @@ class Solution:
 
         return "" if res == None else res
     
-print(Solution.minWindow(Solution, "ADOBECODEBANC", "ABC"))
+print(Solution.minWindow(Solution, "ADOBECODEBANC", "adgad"))
