@@ -21,8 +21,7 @@ class Solution:
                         res = s[l:r]
                     else:
                         res = s[l:r] if len(s[l:r]) < len(res) else res
-                    hmT = dict.fromkeys(hmT.keys(), 0)
-                    break
+                    
                 if r < len(s):
                     if s[r] in t:
                         hmT[s[r]] += 1
@@ -32,4 +31,4 @@ class Solution:
 
         return "" if res == None else res
     
-print(Solution.minWindow(Solution, "ADOBECODEBANC", "adgad"))
+print(Solution.minWindow(Solution, "aa", "aa"))

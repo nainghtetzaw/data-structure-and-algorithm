@@ -1,0 +1,41 @@
+class Solution:
+    def characterReplacement(self, s: str, k: int) -> int:
+        if len(s) == 1:
+            return 1
+        
+        res = 0
+        
+        for i, a in enumerate(s):
+            l, r = i, i + 1
+            count = k
+            
+            while r < len(s):
+                if s[r] == a:
+                    r += 1
+                    continue
+                
+                if count == 0:
+                    break
+                
+                if s[r] != a:
+                    count -= 1
+                
+                r += 1
+                
+            while l > 0:
+                if count == 0:
+                    break
+                
+                if s[l] != a:
+                    count -= 1
+                
+                if count <= 0:
+                    break
+
+                l -= 1
+            
+            res = max(res, len(s[l if l >= 0 else 0:r]))
+                    
+        return res
+    
+print(Solution.characterReplacement(Solution, "AABABBA", 1))
