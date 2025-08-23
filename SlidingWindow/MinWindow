@@ -1,34 +1,27 @@
 class Solution:
     def minWindow(self, s: str, t: str) -> str:
-        if len(s) < len(t):
+        if len(t) > len(s) or len(t) == 0:
             return ""
 
-        res = None
-        hmT = {}
+        t = "".join(sorted(t))
+        hm = {}
+        
+        l = 0
+        res = ""
+        for r, a in enumerate(s):
+            if len(t) == 1 and a == t:
+                return a
 
-        for i in t:
-            hmT[i] = 0
-
-        r = 0
-        for l in range(len(s)):
-            if s[l] not in t:
-                continue
+            if a in t:
+                hm[r] = a
+                
+            if len(hm) == len(t):
+                if "".join(sorted(hm.values())) == t:
+                    res = min(res, s[l:r + 1], key = len) if len(res) > 0 else s[l:r + 1]
             
-            r = l
-            while r < len(s) + 1:
-                if min(hmT.values()) > 0:
-                    if res == None:
-                        res = s[l:r]
-                    else:
-                        res = s[l:r] if len(s[l:r]) < len(res) else res
-                    
-                if r < len(s):
-                    if s[r] in t:
-                        hmT[s[r]] += 1
-                
-                r += 1
-                
-
-        return "" if res == None else res
+                hm.pop(next(iter(hm)))
+                l = list(hm.keys())[0] if len(hm) > 0 else 1 + l
+            
+        return res
     
-print(Solution.minWindow(Solution, "aa", "aa"))
+print(Solution.minWindow(Solution, "ADOBECODEBANC", "ABC"))
