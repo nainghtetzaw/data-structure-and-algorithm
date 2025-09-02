@@ -1,27 +1,36 @@
 class Solution:
     def minWindow(self, s: str, t: str) -> str:
-        if len(t) > len(s) or len(t) == 0:
+        if len(t) > len(s):
             return ""
-
-        t = "".join(sorted(t))
-        hm = {}
         
-        l = 0
-        res = ""
-        for r, a in enumerate(s):
-            if len(t) == 1 and a == t:
-                return a
+        tSum = 0
+        for i in t:
+            tSum = tSum + (ord(i) - ord("a" if i.islower() else "A"))
 
+        l = 0
+        sCount = {}
+        res = ""
+
+        for r, a in enumerate(s):
             if a in t:
-                hm[r] = a
-                
-            if len(hm) == len(t):
-                if "".join(sorted(hm.values())) == t:
-                    res = min(res, s[l:r + 1], key = len) if len(res) > 0 else s[l:r + 1]
+                if len(sCount) == 0:
+                    l = r
+                sCount[r] = ord(a) - ord("a" if i.islower() else "A")
+
+            if len(sCount) == len(t):
+                if sum(sCount.values()) == tSum:
+                    if len(res) == 0:
+                        res = s[l: max(sCount.keys()) + 1]
+                    else:
+                        res =  min(res, s[l: max(sCount.keys()) + 1], key = len)
+
+                del sCount[min(sCount.keys())]
+                if len(sCount) > 0:
+                    l = min(sCount.keys())
             
-                hm.pop(next(iter(hm)))
-                l = list(hm.keys())[0] if len(hm) > 0 else 1 + l
-            
+            print("r = ", r)
+            print("res = ",res)
+            print("sCount = ",sCount)
+            print("--- END ---\n")
+
         return res
-    
-print(Solution.minWindow(Solution, "ADOBECODEBANC", "ABC"))
