@@ -17,3 +17,6 @@ class Solution:
                 longestLen = max(longestLen, len(s[l:r]))
 
         return longestLen
+    
+    
+d = dict(enumerate("abc"))
