@@ -1,0 +1,19 @@
+from typing import List
+
+class Solution:
+    def findMaxAverage(self, nums: List[int], k: int) -> float:
+        l = 0
+        curr = float(0)
+        res = None
+
+        for r in range(len(nums)):
+            curr += nums[r] / k
+
+            if r - l + 1 == k:       
+                res = max(res, curr) if res != None else curr
+                curr -= nums[l] / k
+                l += 1 if l < len(nums) - 1 else 0
+        
+        return res if res != None else float(0)
+            
+                
