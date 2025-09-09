@@ -18,8 +18,6 @@ class Solution:
             if matches == 26:
                 return True
 
-            print(s2Count)
-
             index = ord(s2[r]) - ord('a')
             s2Count[index] += 1
             if s2Count[index] == s1Count[index]:
