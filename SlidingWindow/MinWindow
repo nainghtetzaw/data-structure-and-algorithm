@@ -3,34 +3,31 @@ class Solution:
         if len(t) > len(s):
             return ""
         
-        tSum = 0
-        for i in t:
-            tSum = tSum + (ord(i) - ord("a" if i.islower() else "A"))
+        tCount, window = {}, {}
+        for i in range(len(t)):
+            tCount[t[i]] = 1 + tCount.get(t[i], 0)
 
-        l = 0
-        sCount = {}
-        res = ""
-
-        for r, a in enumerate(s):
-            if a in t:
-                if len(sCount) == 0:
-                    l = r
-                sCount[r] = ord(a) - ord("a" if i.islower() else "A")
-
-            if len(sCount) == len(t):
-                if sum(sCount.values()) == tSum:
-                    if len(res) == 0:
-                        res = s[l: max(sCount.keys()) + 1]
-                    else:
-                        res =  min(res, s[l: max(sCount.keys()) + 1], key = len)
-
-                del sCount[min(sCount.keys())]
-                if len(sCount) > 0:
-                    l = min(sCount.keys())
+        l, have, want = 0, 0, len(tCount)
+        res, resLength = [-1, -1], float("infinity")
+        for r in range(len(s)):
+            window[s[r]] = 1 + window.get(s[r], 0)
             
-            print("r = ", r)
-            print("res = ",res)
-            print("sCount = ",sCount)
-            print("--- END ---\n")
+            if s[r] in tCount and window[s[r]] == tCount[s[r]]:
+                have += 1
+            
+            while have == want:
+                if (r - l + 1) < resLength:
+                    res = [l, r]
+                    resLength = r - l + 1
+            
+                window[s[l]] -= 1
 
-        return res
+                if s[l] in tCount and window[s[l]] < tCount[s[l]]:
+                    have -= 1
+                
+                l += 1
+
+        l, r = res
+        return s[l:r + 1] if resLength != float("infinity") else ""
+
+print(Solution.minWindow(Solution, "aa", "aa"))
