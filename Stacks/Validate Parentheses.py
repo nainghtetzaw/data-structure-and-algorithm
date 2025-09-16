@@ -1,18 +1,24 @@
 class Solution:
     def isValid(self, s: str) -> bool:
-        stack = []
-        closeToOpen = { ")" : "(", "}" : "{", "]" : "[" }
+        if len(s) == 1:
+            return False
         
-        for char in s:
-            if char in closeToOpen:
-                if stack and stack[-1] == closeToOpen[char]:
-                    stack.pop()
-                else:
-                    return False
+        brackets = {')':'(',']':'[','}':'{'}
+        stack = []
+        for i in s:
+            if i in brackets.values():
+                stack.append(i)
+                continue
+            
+            if not stack:
+                return False
+            
+            if brackets[i] == stack[-1]:
+                stack.pop()
             else:
-                stack.append(char)
-
-        return True if not stack else False
+                return False
+            
+        return True if len(stack) == 0 else False
 
 print(Solution.isValid(Solution, "({[]})"))
 print(Solution.isValid(Solution, "(){}[]"))
