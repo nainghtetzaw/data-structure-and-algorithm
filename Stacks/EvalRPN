@@ -6,20 +6,17 @@ class Solution:
         stack = []
         
         for i in tokens:
-            if i in ["+", "-", "*", "/"]:
-                num1 = stack.pop()
-                num2 = stack.pop()
-                if i == "+":
-                    stack.append(num2 + num1)
-                elif i == "-":
-                    stack.append(num2 - num1)
-                elif i == "*":
-                    stack.append(num2 * num1)
-                elif i == "/":
-                    res = num2 / num1
-                    stack.append(math.ceil(res) if res < 0 else math.floor(res))
-                continue
-
-            stack.append(int(i))
+            if i == "+":
+                stack.append(stack.pop() + stack.pop())
+            elif i == "-":
+                num1, num2 = stack.pop(), stack.pop()
+                stack.append(num2 - num1)
+            elif i == "*":
+                stack.append(stack.pop() * stack.pop())
+            elif i == "/":
+                num1, num2 = stack.pop(), stack.pop()
+                stack.append(int(num2 / num1))
+            else:
+                stack.append(int(i))
             
         return stack[0]
