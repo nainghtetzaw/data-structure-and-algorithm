@@ -18,4 +18,3 @@ class Solution:
             maxArea = max(maxArea, h * (len(heights) - i))
 
         return maxArea
-                     
