@@ -1,19 +1,22 @@
 from typing import List
 class Solution:
     def search(self, nums: List[int], target: int) -> int:
-        l, r = 0, len(nums) - 1
+        if len(nums) == 1:
+            return 0 if nums[0] == target else -1
 
-        sorted(nums)
-        while l < r:
+        l, r = 0, len(nums) - 1
+        hm = {n : i for i, n in enumerate(nums)}
+        
+        nums.sort()
+        while l <= r:
             m = l + (r - l) // 2
-            print("m = ", m, " l = ", l, " r = ", r)
             if nums[m] == target:
-                return m
+                return hm[nums[m]]
             
             if target < nums[m]:
-                r = m
+                r = m - 1
             else:
-                l = m
+                l = m + 1
             
         return -1
     
