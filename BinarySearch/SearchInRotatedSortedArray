@@ -10,9 +10,10 @@ class Solution:
         nums.sort()
         while l <= r:
             m = l + (r - l) // 2
+            
             if nums[m] == target:
                 return hm[nums[m]]
-            
+    
             if target < nums[m]:
                 r = m - 1
             else:
