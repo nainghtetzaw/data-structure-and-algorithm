@@ -7,31 +7,12 @@
 
 class Solution:
     def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
-        pNodes = []
-        qNodes = []
+        cur = root
 
-        def listDownAncestors(curr: 'TreeNode', target: 'TreeNode', ancestors: List['TreeNode']) -> bool:
-            if not curr:
-                return False
-            
-            if curr.val == target.val:
-                ancestors.append(curr)
-                return True
-            
-            if (listDownAncestors(curr.left, target, ancestors) 
-            or listDownAncestors(curr.right, target, ancestors)):
-                ancestors.append(curr)
-                return True
-
-            return False
-        
-        listDownAncestors(root, p, pNodes)
-        listDownAncestors(root, q, qNodes)
-
-        while pNodes and qNodes and pNodes[0].val != qNodes[0].val:
-            if len(pNodes) > len(qNodes):
-                del pNodes[0]
+        while cur:
+            if p.val > cur.val and q.val > cur.val:
+                cur = cur.right
+            elif p.val < cur.val and q.val < cur.val:
+                cur = cur.left
             else:
-                del qNodes[0]
-
-        return pNodes[0]
+                return cur
