@@ -12,3 +12,10 @@ class Solution:
             k -= 1
         return res
         
+    
+arr = [3,4,1,4,5,6,3]
+res = []
+heapq.heapify(arr)
+for i in range(len(arr)):
+    res.append(heapq.heappop(arr))
+print(res)

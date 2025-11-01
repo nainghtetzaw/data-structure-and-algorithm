@@ -24,7 +24,7 @@ class Twitter:
         heapq.heapify(minHeap)
 
         res = []
-        while minHeap and len(res) < 10:
+        while minHeap and len(res) < 10: 
             res.append(heapq.heappop(minHeap)[1])
         
         return res
