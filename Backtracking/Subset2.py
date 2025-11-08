@@ -1,13 +1,13 @@
+from typing import List
+
 class Solution:
     def subsetsWithDup(self, nums: List[int]) -> List[List[int]]:
         res = [[]]
 
         nums.sort()
         def dfs(i, cur):
-            if cur and cur not in res:
-                res.append(cur.copy())
-
             if i >= len(nums):
+                res.append(cur[::])
                 return
             
             cur.append(nums[i])
