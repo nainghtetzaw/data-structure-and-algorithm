@@ -6,31 +6,29 @@ class Solution:
             return True
 
         hm = {i : [] for i in range(numCourses)}
-        seen = set()
 
         for i, a in prerequisites:
             hm[i].append(a)
 
-        def dfs(key, visited):
+        visited = set()
+
+        def dfs(key):
             if key in visited:
                 return False
+            if not hm[key]:
+                return True
 
-            visited.append(key)
+            visited.add(key)
             for j in hm[key]:
-                if j in seen:
-                    continue
-                if not dfs(j, visited):
+                if not dfs(j):
                     return False
-
-            visited.pop()
-            seen.add(key)
+            visited.remove(key)
+            hm[key] = []
                 
             return True
 
         for k in hm.keys():
-            if len(seen) == numCourses:
-                break
-            if not dfs(k, []):
+            if not dfs(k):
                 return False
 
         return True
